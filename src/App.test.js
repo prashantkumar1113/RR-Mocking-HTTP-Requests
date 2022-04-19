@@ -15,3 +15,17 @@ test("receives GitHub name from GitHub REST API using jest fetch mock", async ()
     );
     expect(gitHubName).toHaveTextContent("Prashant Kumar");
 });
+
+test("Github profile button link", async () => {
+    fetch.mockResponseOnce(
+        JSON.stringify({html_url: "https://github.com/prashantkumar1113"})
+    );
+    render(<App />);
+
+    const gitHubUrl = await waitFor(() => screen.getByRole("link"));
+
+    expect(gitHubUrl).toHaveAttribute(
+        "href",
+        "https://github.com/prashantkumar1113"
+    );
+});
