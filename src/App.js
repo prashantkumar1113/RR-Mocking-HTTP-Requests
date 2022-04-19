@@ -1,13 +1,23 @@
-import React from 'react'
-import './App.css'
-
+import React, {useEffect, useState} from "react";
+import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <h1>Github Profile Info:</h1>
-    </div>
-  );
+    const [gitHubName, setGitHubName] = useState("");
+
+    useEffect(() => {
+        fetch("https://api.github.com/users/prashantkumar1113")
+            .then((res) => res.json())
+            .then((data) => {
+                setGitHubName(data.name);
+            });
+    }, []);
+
+    return (
+        <div className="App">
+            <h1>Github Profile Info:</h1>
+            <h2>{gitHubName}</h2>
+        </div>
+    );
 }
 
 export default App;
